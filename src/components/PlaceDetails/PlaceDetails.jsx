@@ -1,9 +1,8 @@
 import React from 'react';
-import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip } from '@material-ui/core';
-import LocationOn from '@mui/icons-material/LocationOn';
-import PhoneIcon from '@material-ui/icons/Phone';
-import Rating from '@mui/lab/Rating';
-
+import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip } from '@mui/material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import Rating from '@mui/material/Rating';
 
 import useStyles from './styles.js';
 
@@ -44,7 +43,6 @@ const PlaceDetails = ({ place, selected, refProp }) => {
               src={award.images.small} 
               alt={award.title || 'Award image'} 
             />
-
             <Typography variant="subtitle2" color="textSecondary">{award.display_name}</Typography>
           </Box>
         ))}
