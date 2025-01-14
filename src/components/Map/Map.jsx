@@ -1,8 +1,8 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Paper, Typography, useMediaQuery } from '@material-ui/core';
+import { Box, Typography, Paper, useMediaQuery } from '@mui/material';
 import LocationOn from '@mui/icons-material/LocationOn';
-import Rating from '@mui/lab/Rating';
+import { Rating } from '@mui/material';
 
 import mapStyles from '../../mapStyles';
 import useStyles from './styles.js';
@@ -14,7 +14,7 @@ const Map = ({ coords, places, setCoords, setBounds, setChildClicked, weatherDat
   return (
     <div className={classes.mapContainer}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY || '' }}
         defaultCenter={coords}
         center={coords}
         defaultZoom={14}
@@ -26,7 +26,7 @@ const Map = ({ coords, places, setCoords, setBounds, setChildClicked, weatherDat
         }}
         onChildClick={(child) => setChildClicked(child)}
       >
-        {places.length && places.map((place, i) => (
+        {places?.length > 0 && places.map((place, i) => (
           <div
             className={classes.markerContainer}
             lat={Number(place.latitude)}
@@ -43,19 +43,18 @@ const Map = ({ coords, places, setCoords, setBounds, setChildClicked, weatherDat
                     src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
                     alt={place.name ? `Image of ${place.name}` : 'Default restaurant placeholder'}
                   />
-
                   <Rating name="read-only" size="small" value={Number(place.rating)} readOnly />
                 </Paper>
               )}
           </div>
         ))}
-        {weatherData?.list?.length && weatherData.list.map((data, i) => (
+        {weatherData?.list?.length > 0 && weatherData.list.map((data, i) => (
           <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
-            <img 
-              src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} height="70px" 
-              alt={data.weather[0].description || 'Weather icon'} 
+            <img
+              src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
+              height="70px"
+              alt={data.weather[0].description || 'Weather icon'}
             />
-
           </div>
         ))}
       </GoogleMapReact>
