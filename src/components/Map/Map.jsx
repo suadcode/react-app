@@ -42,7 +42,9 @@ const Map = ({ coords, places, setCoords, setBounds, setChildClicked, weatherDat
                   <img
                     className={classes.pointer}
                     src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
+                    alt={place.name ? `Image of ${place.name}` : 'Default restaurant placeholder'}
                   />
+
                   <Rating name="read-only" size="small" value={Number(place.rating)} readOnly />
                 </Paper>
               )}
