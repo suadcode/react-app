@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar } from '@mui/material';
-
+import { CssBaseline, Grid, AppBar, Toolbar } from '@mui/material';
 
 import { getPlacesData, getWeatherData } from './api/travelAdvisorAPI';
 import Header from './components/Header/Header';
@@ -30,34 +29,33 @@ const App = () => {
 
   useEffect(() => {
     const filtered = places.filter((place) => Number(place.rating) > rating);
-
     setFilteredPlaces(filtered);
-  }, [rating]);
+  }, [places, rating]);
 
   useEffect(() => {
-    if (bounds) {
+    if (bounds && coords.lat && coords.lng) {
       setIsLoading(true);
 
-      getWeatherData(coords.lat, coords.lng)
-        .then((data) => setWeatherData(data));
+      getWeatherData(coords.lat, coords.lng).then((data) => setWeatherData(data));
 
-      getPlacesData(type, bounds.sw, bounds.ne)
-        .then((data) => {
-          setPlaces(data.filter((place) => place.name && place.num_reviews > 0));
-          setFilteredPlaces([]);
-          setRating('');
-          setIsLoading(false);
-        });
+      getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
+        setPlaces(data.filter((place) => place.name && place.num_reviews > 0));
+        setFilteredPlaces([]);
+        setRating('');
+        setIsLoading(false);
+      });
     }
-  }, [bounds, type]);
+  }, [bounds, type, coords]);
 
   const onLoad = (autoC) => setAutocomplete(autoC);
 
   const onPlaceChanged = () => {
-    const lat = autocomplete.getPlace().geometry.location.lat();
-    const lng = autocomplete.getPlace().geometry.location.lng();
+    if (autocomplete) {
+      const lat = autocomplete.getPlace().geometry.location.lat();
+      const lng = autocomplete.getPlace().geometry.location.lng();
 
-    setCoords({ lat, lng });
+      setCoords({ lat, lng });
+    }
   };
 
   return (
