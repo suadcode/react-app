@@ -16,8 +16,10 @@ const PlaceDetails = ({ place, selected, refProp }) => {
       <CardMedia
         style={{ height: 350 }}
         image={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
-        title={place.name}
+        title={place.name || 'Default restaurant image'}
+        aria-label={place.name || 'Default restaurant image'}
       />
+
       <CardContent>
         <Typography gutterBottom variant="h5">{place.name}</Typography>
         <Box display="flex" justifyContent="space-between" my={2}>
