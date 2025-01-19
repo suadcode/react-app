@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client'; // استيراد createRoot
 import App from './App';
 
-// تأكد أن العنصر التالي موجود في index.html: <div id="root"></div>
-ReactDOM.render(
+// إنشاء root جديد باستخدام createRoot
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
