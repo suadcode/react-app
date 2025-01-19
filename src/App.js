@@ -22,9 +22,16 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
-      setCoords({ lat: latitude, lng: longitude });
-    });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+          setCoords({ lat: latitude, lng: longitude });
+        },
+        (error) => console.error('Error accessing geolocation:', error)
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
   }, []);
 
   useEffect(() => {

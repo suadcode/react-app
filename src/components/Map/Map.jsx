@@ -1,6 +1,6 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Box, Typography, Paper, useMediaQuery } from '@mui/material';
+import { Typography, Paper, useMediaQuery } from '@mui/material';
 import LocationOn from '@mui/icons-material/LocationOn';
 import { Rating } from '@mui/material';
 
