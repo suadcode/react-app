@@ -6,65 +6,47 @@ import Rating from '@mui/material/Rating';
 
 import useStyles from './styles.js';
 
-const PlaceDetails = ({ place, selected, refProp }) => {
+const PlaceDetails = ({ selected, refProp }) => {
   if (selected) refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   const classes = useStyles();
 
   return (
     <Card elevation={6}>
+      {/* إزالة أي تفاصيل مكان مرتبطة بالـ API */}
       <CardMedia
         style={{ height: 350 }}
-        image={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
-        title={place.name || 'Default restaurant image'}
-        aria-label={place.name || 'Default restaurant image'}
+        image='https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg' // صورة افتراضية
+        title='Default restaurant image'
       />
 
       <CardContent>
-        <Typography gutterBottom variant="h5">{place.name}</Typography>
+        <Typography gutterBottom variant="h5">Place Name</Typography>
         <Box display="flex" justifyContent="space-between" my={2}>
-          <Rating name="read-only" value={Number(place.rating)} readOnly />
-          <Typography component="legend">{place.num_reviews} review{place.num_reviews > 1 && 's'}</Typography>
+          <Rating name="read-only" value={3} readOnly /> {/* قيمة ثابتة */}
+          <Typography component="legend">10 reviews</Typography> {/* قيمة ثابتة */}
         </Box>
         <Box display="flex" justifyContent="space-between">
           <Typography component="legend">Price</Typography>
-          <Typography gutterBottom variant="subtitle1">
-            {place.price_level}
-          </Typography>
+          <Typography gutterBottom variant="subtitle1">$$</Typography> {/* قيمة ثابتة */}
         </Box>
         <Box display="flex" justifyContent="space-between">
           <Typography component="legend">Ranking</Typography>
-          <Typography gutterBottom variant="subtitle1">
-            {place.ranking}
-          </Typography>
+          <Typography gutterBottom variant="subtitle1">Top 10</Typography> {/* قيمة ثابتة */}
         </Box>
-        {place?.awards?.map((award) => (
-          <Box display="flex" justifyContent="space-between" my={1} alignItems="center">
-            <img 
-              src={award.images.small} 
-              alt={award.title || 'Award image'} 
-            />
-            <Typography variant="subtitle2" color="textSecondary">{award.display_name}</Typography>
-          </Box>
-        ))}
-        {place?.cuisine?.map(({ name }) => (
-          <Chip key={name} size="small" label={name} className={classes.chip} />
-        ))}
-        {place.address && (
-          <Typography gutterBottom variant="body2" color="textSecondary" className={classes.subtitle}>
-            <LocationOnIcon />{place.address}
-          </Typography>
-        )}
-        {place.phone && (
-          <Typography variant="body2" color="textSecondary" className={classes.spacing}>
-            <PhoneIcon /> {place.phone}
-          </Typography>
-        )}
+        {/* إزالة الجوائز والمأكولات */}
+        <Typography gutterBottom variant="body2" color="textSecondary" className={classes.subtitle}>
+          <LocationOnIcon /> Some address here
+        </Typography>
+        <Typography variant="body2" color="textSecondary" className={classes.spacing}>
+          <PhoneIcon /> (123) 456-7890
+        </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary" onClick={() => window.open(place.web_url, '_blank')}>
+        {/* إزالة الروابط إلى مواقع الـ API */}
+        <Button size="small" color="primary" onClick={() => window.open('https://example.com', '_blank')}>
           Trip Advisor
         </Button>
-        <Button size="small" color="primary" onClick={() => window.open(place.website, '_blank')}>
+        <Button size="small" color="primary" onClick={() => window.open('https://example.com', '_blank')}>
           Website
         </Button>
       </CardActions>
