@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { CssBaseline, Grid } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles'; // استيراد ThemeProvider و createTheme
+import { ThemeProvider, createTheme } from '@mui/material/styles'; 
 import Header from './components/Header/Header';
 import List from './components/List/List';
 
-const theme = createTheme(); // إنشاء الثيم الافتراضي
+const theme = createTheme(); 
 
 const App = () => {
   const [type, setType] = useState('restaurants');
